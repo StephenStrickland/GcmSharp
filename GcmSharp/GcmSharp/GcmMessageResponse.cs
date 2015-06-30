@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Gcm.Net
 {
-    public class GcmMessageResponse
+    public class GcmMessageResponse : IResponse
     {
         public int MultiCastId { get; set; }
         public int GcmSuccess { get; set; }
         public GcmMessage Message { get; set; }
+        public HttpWebResponse HttpWebResponse { get; set; }
+        public WebRequest WebRequest { get; set; }
+        public ENUM_GCM_MESSAGE_RESPONSE_TYPES ResponseStatus {get;set;}
+        public bool Success { get { return ResponseStatus == ENUM_GCM_MESSAGE_RESPONSE_TYPES.SUCCESS; } }
     }
-    public enum ENUM_GCM_RESPONSE_TYPES
+    public enum ENUM_GCM_MESSAGE_RESPONSE_TYPES
     {
-        NONE = 0,
+        SUCCESS = 0,
         MISSING_REGISTRATION_TOKEN = 1,
         INVALID_REGISTRATION_TOKEN=2,
         UNREGISTED_DEVICE=3,

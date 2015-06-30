@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,9 +34,68 @@ namespace Gcm.Net
         private string SenderId { get; set; }
         private string PackageName { get; set; }
 
-        public WebResponse SendMessage(GcmMessage message)
+        public GcmMessageResponse SendMessage(GcmMessage message)
         {
-            return Send(message, GCM_SEND_URL);
+            GcmMessageResponse messageResponse = new GcmMessageResponse();
+            string responseData = "";
+            SetupGcmMessageRequest(GCM_SEND_URL);
+
+            HttpWebResponse httpWebResponse;
+            string data = JsonConvert.SerializeObject(message);
+
+            string responseData = "";
+            request.ContentLength = data.Length;
+
+            using (var dataStream = new StreamWriter(request.GetRequestStream()))
+            {
+                dataStream.Write(data);
+                // dataStream.Flush();
+                dataStream.Close();
+            }
+            try
+            {
+                //response = request.GetResponse();
+                using (var tempResponse = (HttpWebResponse)request.GetResponse())
+                {
+                    httpWebResponse = tempResponse;
+                    tempResponse.Close();
+                }
+                // httpWebResponse = (HttpWebResponse)request.GetResponse();
+                httpWebResponse.Close();
+            }
+            catch (WebException ex)
+            {
+                httpWebResponse = (HttpWebResponse)ex.Response;
+
+                HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
+                Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+
+                using (var reader = new StreamReader(httpWebResponse.GetResponseStream()))
+                {
+                    responseData = reader.ReadToEnd();
+                }
+
+
+                ex.Response.Close();
+                httpResponse.Close();
+
+                //response = ex.Response;
+                //httpWebResponse = httpResponse;
+            }
+
+
+            if (httpWebResponse.StatusCode == HttpStatusCode.OK)
+            {
+                GcmMessageResponse j = JsonConvert.DeserializeObject<GcmMessageResponse>(data);
+                j.HttpWebResponse = httpWebResponse;
+                j.WebRequest = request;
+                j.ResponseStatus = ENUM_GCM_MESSAGE_RESPONSE_TYPES.SUCCESS;
+                return j;
+
+            }
+
+            return messageResponse;
+            //return Send(message);
         }
 
         public WebResponse CreateDeviceGroupWithRegistrationIds(List<string> ids, string notificationKeyName)
@@ -46,7 +106,9 @@ namespace Gcm.Net
                 Operation = DeviceGroupOptionsConstants.Create,
                 RegistrationIds = ids
             };
-            return Send(deviceGroup, GCM_NOTIFICATION_URL);
+            SetupGcmMessageRequest(GCM_NOTIFICATION_URL);
+
+            return Send(deviceGroup);
         }
 
         public WebResponse AddRegistrationIdsToDeviceGroup(List<string> ids, string notificationKey, string notificationKeyName = null)
@@ -58,7 +120,8 @@ namespace Gcm.Net
                 Operation = DeviceGroupOptionsConstants.Add,
                 RegistrationIds = ids
             };
-            return Send(deviceGroup, GCM_NOTIFICATION_URL);
+            SetupGcmMessageRequest(GCM_NOTIFICATION_URL);
+            return Send(deviceGroup);
         }
 
         public WebResponse RemoveRegistrationIdsFromDeviceGroup(List<string> ids, string notificationKey, string notificationKeyName = null)
@@ -70,16 +133,85 @@ namespace Gcm.Net
                 Operation = DeviceGroupOptionsConstants.Remove,
                 RegistrationIds = ids
             };
-            return Send(deviceGroup, GCM_NOTIFICATION_URL);
+            SetupGcmMessageRequest(GCM_NOTIFICATION_URL);
+            return Send(deviceGroup);
         }
 
-        public GcmInstanceIdRequest SendInstanceIdRequest(bool details, string instanceId)
+        public GcmInstanceIdResponse GetInstanceIdResponse(bool details, string instanceId)
         {
-            SetupGcmInstanceIdRequest();
-            GcmInstanceIdRequest instanceIdObj = new GcmInstanceIdRequest();
+            GcmInstanceIdResponse instanceIdResponse = new GcmInstanceIdResponse();
+           
+            HttpWebResponse httpWebResponse;
+            string data = JsonConvert.SerializeObject(new { details = details, token = instanceId });
 
+            string responseData = "";
+
+
+            SetupGcmInstanceIdRequest();
+            request.ContentLength = data.Length;
+
+            using (var dataStream = new StreamWriter(request.GetRequestStream()))
+            {
+                dataStream.Write(data);
+                // dataStream.Flush();
+                dataStream.Close();
+            }
+            try
+            {
+                //response = request.GetResponse();
+                using (var tempResponse = (HttpWebResponse)request.GetResponse())
+                {
+                    httpWebResponse = tempResponse;
+                    using (var reader = new StreamReader(httpWebResponse.GetResponseStream()))
+                    {
+                        responseData = reader.ReadToEnd();
+                    }
+                    tempResponse.Close();
+                }
+                // httpWebResponse = (HttpWebResponse)request.GetResponse();
+                httpWebResponse.Close();
+            }
+            catch (WebException ex)
+            {
+                httpWebResponse = (HttpWebResponse)ex.Response;
+
+                //HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
+                Console.WriteLine("Error code: {0}", httpWebResponse.StatusCode);
+
+                using (var reader = new StreamReader(httpWebResponse.GetResponseStream()))
+                {
+                    responseData = reader.ReadToEnd();
+                }
+
+                httpWebResponse.Close();
+                ex.Response.Close();
+               // httpResponse.Close();
+
+                //response = ex.Response;
+                //httpWebResponse = httpResponse;
+            }
+
+
+            
+           // instanceIdResponse.HttpWebResponse =  Send(new { details = details, token = instanceId });
+            instanceIdResponse.HttpWebResponse = httpWebResponse;
+            instanceIdResponse.WebRequest = request;
+            // responseData = ReadData(instanceIdResponse.HttpWebResponse);
+            if (httpWebResponse.StatusCode == HttpStatusCode.OK)
+            {
+                GcmInstanceIdResponse j = JsonConvert.DeserializeObject<GcmInstanceIdResponse>(data);
+                j.HttpWebResponse = httpWebResponse;
+                j.WebRequest = request;
+                j.ResponseStatus = INSTANCE_ID_RESPONSE_STATUS.SUCCESS;
+                return j;
+
+            }
+
+            Console.WriteLine(request.ToString());
+
+            instanceIdResponse.ResponseStatus = (INSTANCE_ID_RESPONSE_STATUS)httpWebResponse.StatusCode;
            // string data = string.Format("{details: \"{0}\", token: \"{1}\" }", details, instanceId);
-            return ProcessInstanceId(instanceIdObj, Send(new { details = details, token = instanceId }));
+            return instanceIdResponse;
              
         }
 
@@ -116,10 +248,20 @@ namespace Gcm.Net
         //make web request async
         //callback
 
-        private T Send( object obj, string url = null)
+        private string ReadData(WebResponse response)
         {
-            if(url != null)
-            SetupGcmMessageRequest(url);
+            string responseData;
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                responseData = reader.ReadToEnd();
+            }
+            return responseData;
+        }
+
+
+        private HttpWebResponse Send(object obj)
+        {
+            //if(typeof(T).Name == )
             //WebResponse response;
             HttpWebResponse httpWebResponse;
             string data = JsonConvert.SerializeObject(obj);
@@ -136,10 +278,10 @@ namespace Gcm.Net
             try
             {
                 //response = request.GetResponse();
-                using(var response = (HttpWebResponse)request.GetResponse())
+                using(var tempResponse = (HttpWebResponse)request.GetResponse())
                 {
-                    httpWebResponse = response;
-                    response.Close();
+                    httpWebResponse = tempResponse;
+                    tempResponse.Close();
                 }
                // httpWebResponse = (HttpWebResponse)request.GetResponse();
                 httpWebResponse.Close();
@@ -151,7 +293,7 @@ namespace Gcm.Net
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
                 Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
 
-                using(var reader = new StreamReader(httpWebResponse.GetResponseStream()))
+                using (var reader = new StreamReader(httpWebResponse.GetResponseStream()))
                 {
                     responseData = reader.ReadToEnd();
                 }
@@ -169,7 +311,7 @@ namespace Gcm.Net
         }
 
 
-        public GcmInstanceIdRequest ProcessInstanceId(GcmInstanceIdRequest req, HttpWebResponse resp)
+        public GcmInstanceIdResponse ProcessInstanceId(GcmInstanceIdResponse req, HttpWebResponse resp)
         {
             req.ResponseStatus = (INSTANCE_ID_RESPONSE_STATUS)resp.StatusCode;
             return req;

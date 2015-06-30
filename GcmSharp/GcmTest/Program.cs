@@ -32,7 +32,7 @@ namespace GcmTest
 
 
 
-            var r = manager.SendInstanceIdRequest(true, "instanceidhere");
+            var r = manager.GetInstanceIdResponse(true, "APA91bEVUAdCF4XdfV6cnecuih5SY48lePF8ZCiBgL8fgqRlB9CKlRyZbqOpfOOfP3SkOG2VYH1LDrYi80aotHg1at6QdcDrk_2t1_Iopw7MAkjv0dD-4DCbyqw7qKpF7INfiRQ2u_Ax");
             Console.WriteLine(r.ToString());
            // manager.SendMessage(message);
             string data = JsonConvert.SerializeObject(message, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});

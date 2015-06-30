@@ -8,7 +8,7 @@ namespace Gcm.Net
 {
     public class GcmResponse
     {
-        public ENUM_GCM_RESPONSE_TYPES ResponseError { get; set; }
+        public ENUM_GCM_MESSAGE_RESPONSE_TYPES ResponseError { get; set; }
         public bool Success { get; set; }
     }
 }

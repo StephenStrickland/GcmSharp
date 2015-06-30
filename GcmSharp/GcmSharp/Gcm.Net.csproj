@@ -46,7 +46,7 @@
     <Compile Include="GcmData.cs" />
     <Compile Include="GcmDeviceGroupOptions.cs" />
     <Compile Include="GcmDeviceGroupResponse.cs" />
-    <Compile Include="GcmInstanceIdRequest.cs" />
+    <Compile Include="GcmInstanceIdResponse.cs" />
     <Compile Include="GcmManager.cs" />
     <Compile Include="GcmMessageExtensions.cs" />
     <Compile Include="GcmNotificationExtensions.cs" />
@@ -57,6 +57,7 @@
     <Compile Include="IPayload.cs" />
     <Compile Include="GcmNotification.cs" />
     <Compile Include="GcmMessage.cs" />
+    <Compile Include="IResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

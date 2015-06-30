@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,19 +8,34 @@ using System.Threading.Tasks;
 
 namespace Gcm.Net
 {
-    public class GcmInstanceIdRequest
+    public class GcmInstanceIdResponse : IResponse
     {
+        [JsonProperty("application", NullValueHandling = NullValueHandling.Ignore)]
         public string Application { get; set; }
+
+        [JsonProperty("authorized_entity", NullValueHandling = NullValueHandling.Ignore)]
         public string AuthorizedEntity { get; set; }
+
+        [JsonProperty("platform", NullValueHandling = NullValueHandling.Ignore)]
         public string Platform { get; set; }
+
+        [JsonProperty("attest_status", NullValueHandling = NullValueHandling.Ignore)]
         public string AttestStatus { get; set; }
+
+        [JsonProperty("app_signer", NullValueHandling = NullValueHandling.Ignore)]
         public string AppSigner { get; set; }
+
+        [JsonProperty("connection_type", NullValueHandling = NullValueHandling.Ignore)]
         public string ConnectionType { get; set; }
+
+        [JsonProperty("connection_date", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime ConnectDateTime { get; set; }
         public INSTANCE_ID_RESPONSE_STATUS ResponseStatus { get; set; }
         public bool Success { get { return ResponseStatus == INSTANCE_ID_RESPONSE_STATUS.SUCCESS; } }
-        public HttpWebResponse WebResponse { get; set; }
-        public object WebResponseData { get; set; }
+        public HttpWebResponse HttpWebResponse { get; set; }
+        public WebRequest WebRequest { get; set; }
+
+        //public object WebResponseData { get; set; }
     }
 
     public enum INSTANCE_ID_RESPONSE_STATUS
