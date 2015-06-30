@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41E085D4-A282-4639-B023-A5BD89157689}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{384978D7-B042-4583-BB17-36EB1079A56A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GcmSharp</RootNamespace>
-    <AssemblyName>GcmSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>GcmTest</RootNamespace>
+    <AssemblyName>GcmTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,24 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GcmData.cs" />
-    <Compile Include="GcmDeviceGroupOptions.cs" />
-    <Compile Include="GcmDeviceGroupResponse.cs" />
-    <Compile Include="GcmInstanceIdRequest.cs" />
-    <Compile Include="GcmManager.cs" />
-    <Compile Include="GcmMessageExtensions.cs" />
-    <Compile Include="GcmNotificationExtensions.cs" />
-    <Compile Include="GcmResponse.cs" />
-    <Compile Include="GcmMessageResponse.cs" />
-    <Compile Include="IGcmData.cs" />
-    <Compile Include="IGcmNotification.cs" />
-    <Compile Include="IPayload.cs" />
-    <Compile Include="GcmNotification.cs" />
-    <Compile Include="GcmMessage.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GcmSharp\Gcm.Net.csproj">
+      <Project>{41e085d4-a282-4639-b023-a5bd89157689}</Project>
+      <Name>Gcm.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

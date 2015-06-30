@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,25 +32,25 @@ namespace Gcm.Net
         public string CollapseKey { get; set; }
 
         [JsonProperty("priority", NullValueHandling = NullValueHandling.Ignore)]
-        public int Priority { get; set; }
+        public int? Priority { get; set; }
 
         [JsonProperty("content_available", NullValueHandling = NullValueHandling.Ignore)]
-        public bool ContentAvailable { get; set; }
+        public bool? ContentAvailable { get; set; }
 
         [JsonProperty("delay_while_idle", NullValueHandling = NullValueHandling.Ignore)]
-        public bool DelayWhileIdle { get; set; }
+        public bool? DelayWhileIdle { get; set; }
 
         [JsonProperty("time_to_live", NullValueHandling = NullValueHandling.Ignore)]
         public int TimeToLive { get; set; }
 
         [JsonProperty("delivery_receipt_requested", NullValueHandling = NullValueHandling.Ignore)]
-        public bool DeliveryReceiptRequested { get; set; }
+        public bool? DeliveryReceiptRequested { get; set; }
 
         [JsonProperty("restricted_package_name", NullValueHandling = NullValueHandling.Ignore)]
         public string RestrictedPackageName { get; set; }
 
         [JsonProperty("dry_run", NullValueHandling = NullValueHandling.Ignore)]
-        public bool DryRun { get; set; }
+        public bool? DryRun { get; set; }
 
     }
 }
