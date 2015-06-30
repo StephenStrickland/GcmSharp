@@ -13,23 +13,23 @@ namespace Gcm.Net
         [JsonProperty("application", NullValueHandling = NullValueHandling.Ignore)]
         public string Application { get; set; }
 
-        [JsonProperty("authorized_entity", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("authorizedEntity", NullValueHandling = NullValueHandling.Ignore)]
         public string AuthorizedEntity { get; set; }
 
         [JsonProperty("platform", NullValueHandling = NullValueHandling.Ignore)]
         public string Platform { get; set; }
 
-        [JsonProperty("attest_status", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("attestStatus", NullValueHandling = NullValueHandling.Ignore)]
         public string AttestStatus { get; set; }
 
-        [JsonProperty("app_signer", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("appSigner", NullValueHandling = NullValueHandling.Ignore)]
         public string AppSigner { get; set; }
 
-        [JsonProperty("connection_type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("connectionType", NullValueHandling = NullValueHandling.Ignore)]
         public string ConnectionType { get; set; }
 
-        [JsonProperty("connection_date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime ConnectDateTime { get; set; }
+        [JsonProperty("connectionDate", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? ConnectDateTime { get; set; }
         public INSTANCE_ID_RESPONSE_STATUS ResponseStatus { get; set; }
         public bool Success { get { return ResponseStatus == INSTANCE_ID_RESPONSE_STATUS.SUCCESS; } }
         public HttpWebResponse HttpWebResponse { get; set; }
@@ -45,6 +45,15 @@ namespace Gcm.Net
         UNAUTHORIZED = 401,
         BAD_REQUEST = 400,
         SERVICE_UNAVAILABLE = 503
+    }
+
+    public class GcmInstanctIdRequest
+    {
+        [JsonProperty("details", NullValueHandling = NullValueHandling.Ignore)]
+        public bool Details { get; set; }
+
+        [JsonProperty("instance_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string InstanceId { get; set; }
     }
 
 //    {

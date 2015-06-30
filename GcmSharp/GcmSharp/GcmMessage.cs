@@ -22,9 +22,6 @@ namespace Gcm.Net
         [JsonProperty("registration_ids", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> RegistrationIds { get; set; }
 
-        //[JsonProperty("notification_key", NullValueHandling = NullValueHandling.Ignore)]
-        //public string NotificationKey { get; set; }
-
         [JsonProperty("message_id", NullValueHandling = NullValueHandling.Ignore)]
         public string MessageId { get; set; }
 
@@ -41,7 +38,7 @@ namespace Gcm.Net
         public bool? DelayWhileIdle { get; set; }
 
         [JsonProperty("time_to_live", NullValueHandling = NullValueHandling.Ignore)]
-        public int TimeToLive { get; set; }
+        public int? TimeToLive { get; set; }
 
         [JsonProperty("delivery_receipt_requested", NullValueHandling = NullValueHandling.Ignore)]
         public bool? DeliveryReceiptRequested { get; set; }
