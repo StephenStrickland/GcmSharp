@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GcmData.cs" />
-    <Compile Include="GcmDeviceGroupOptions.cs" />
+    <Compile Include="GcmDeviceGroupRequest.cs" />
     <Compile Include="GcmDeviceGroupResponse.cs" />
     <Compile Include="GcmInstanceIdResponse.cs" />
     <Compile Include="GcmManager.cs" />

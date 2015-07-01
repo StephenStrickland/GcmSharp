@@ -33,13 +33,20 @@ namespace GcmTest
 
 
             Stopwatch watch = new Stopwatch();
-            watch.Start();
-            Console.WriteLine("getting instance response");
-            var r = manager.GetInstanceIdResponse(true, "APA91bEVUAdCF4XdfV6cnecuih5SY48lePF8ZCiBgL8fgqRlB9CKlRyZbqOpfOOfP3SkOG2VYH1LDrYi80aotHg1at6QdcDrk_2t1_Iopw7MAkjv0dD-4DCbyqw7qKpF7INfiRQ2u_Ax");
-            Console.WriteLine(r.ToString());
+            Console.ReadKey();
+            //for (int i = 0; i < 10; i++)
+            //{
+                watch.Start();
+                Console.WriteLine("getting instance response");
 
-            watch.Stop();
-            Console.WriteLine("OVERALL: {0}", watch.Elapsed);
+                var response = manager.SendMessage(message);
+                //var r = manager.GetInstanceIdResponse(true, "APA91bEVUAdCF4XdfV6cnecuih5SY48lePF8ZCiBgL8fgqRlB9CKlRyZbqOpfOOfP3SkOG2VYH1LDrYi80aotHg1at6QdcDrk_2t1_Iopw7MAkjv0dD-4DCbyqw7qKpF7INfiRQ2u_Ax");
+                //Console.WriteLine(r.ToString());
+
+                watch.Stop();
+                Console.WriteLine("\nOVERALL: {0}\n\n", watch.Elapsed);
+                watch.Reset();
+            //}
             
             //bool again = true;
             //while(again)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gcm.Net
 {
-    public class GcmDeviceGroupOptions
+    public class GcmDeviceGroupRequest
     {
         [JsonProperty("operation", NullValueHandling = NullValueHandling.Ignore)]
         public string Operation { get; set; }
@@ -22,6 +22,11 @@ namespace Gcm.Net
         public List<string> RegistrationIds { get; set; }
 
     }
+
+    //public class GcmDeviceGroupRespsonse
+    //{
+
+    //}
 
     public class DeviceGroupOptionsConstants
     {

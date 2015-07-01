@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Gcm.Net
 {
-    public class GcmDeviceGroupResponse : GcmResponse
+    public class GcmDeviceGroupResponse : IResponse
     {
-        public GcmDeviceGroupOptions Message { get; set; }
+        public GcmDeviceGroupRequest Request { get; set; }
+        public HttpWebResponse HttpWebResponse { get; set; }
+        public WebRequest WebRequest { get; set; }
     }
 }
