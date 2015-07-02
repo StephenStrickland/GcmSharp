@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gcm.Net", "GcmSharp\Gcm.Net.csproj", "{41E085D4-A282-4639-B023-A5BD89157689}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcmSharp", "GcmSharp\GcmSharp.csproj", "{41E085D4-A282-4639-B023-A5BD89157689}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GcmTest", "GcmTest\GcmTest.csproj", "{384978D7-B042-4583-BB17-36EB1079A56A}"
 EndProject

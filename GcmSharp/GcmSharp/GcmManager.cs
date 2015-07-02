@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Gcm.Net
+namespace GcmSharp
 {
     public class GcmManager
     {

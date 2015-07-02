@@ -54,9 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GcmSharp\Gcm.Net.csproj">
+    <ProjectReference Include="..\GcmSharp\GcmSharp.csproj">
       <Project>{41e085d4-a282-4639-b023-a5bd89157689}</Project>
-      <Name>Gcm.Net</Name>
+      <Name>GcmSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

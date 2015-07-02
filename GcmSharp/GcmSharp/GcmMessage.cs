@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gcm.Net
+namespace GcmSharp
 {
     public class GcmMessage
     {

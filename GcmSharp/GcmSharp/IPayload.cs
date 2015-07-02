@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gcm.Net
+namespace GcmSharp
 {
     class IPayload
     {
         IGcmNotification Notification { get; set; }
-        IGcmData Data { get; set; }
 
     }
 }

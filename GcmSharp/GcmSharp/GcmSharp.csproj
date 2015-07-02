@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GcmData.cs" />
     <Compile Include="GcmDeviceGroupRequest.cs" />
     <Compile Include="GcmDeviceGroupResponse.cs" />
     <Compile Include="GcmInstanceIdResponse.cs" />
@@ -52,7 +51,6 @@
     <Compile Include="GcmNotificationExtensions.cs" />
     <Compile Include="GcmResponse.cs" />
     <Compile Include="GcmMessageResponse.cs" />
-    <Compile Include="IGcmData.cs" />
     <Compile Include="IGcmNotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="GcmNotification.cs" />
