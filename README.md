@@ -3,6 +3,8 @@ This is a C# library to help all of us .Net guys out with push notifications tar
 
 This is a simple a straight forward library to use, just create an instance of a `GcmManager` class, use fluent methods to create a `GcmMessage` with a `GcmNotification`. Then just call the `SendMessage()` method in `GcmManager` and wait for the response.
 
+All of the entities are up to date (as of July 1, 2015) according to the GCM [Server Ref](https://developers.google.com/cloud-messaging/server-ref)
+
 
 ###Example Code
 
