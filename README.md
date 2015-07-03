@@ -40,4 +40,7 @@ First, if you haven't setup GCM for your app go ahead and do so [here](https://d
 | `UseNagleAlgorithm` | This algorithm is great for sending larger amounts of data(>4kb) over a network. So for example if you are sending a large object in `GcmMessage.Data` you might experience better response speeds if you set this to true. Read about it [here](https://msdn.microsoft.com/en-us/library/system.net.servicepointmanager.usenaglealgorithm(v=vs.110).aspx)|
 
 
+##UNDER CONSTRUCTION :)
+
+
 
