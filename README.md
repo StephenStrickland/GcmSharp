@@ -28,6 +28,36 @@ GcmMessageResponse response = manager.SendMessage(message);
 
 ````
 
+###Messages
+
+According to Google a message has to key components(outside of who you are sending it to):
+* Notification
+* Data
+
+Now the Notification property is a notification that will be automagically be handled by GCM and the Android/iOS device to display your notification. However if you need to handle the notification in a different manner or need to pass along more data to your app, you need to use the Data property which is an object being passed along with the message to the device.
+
+#####Populating the Data property
+
+You can pass in your object by creating a new one (as seen above):
+```C#
+.WithData(new { body = "Client: MR. SMITH, Appointment Time: today 3:00pm", title = "Your Appointment Has Arrived" });
+```
+
+Or pass in a class.
+```C#
+.WithData(InstanceOfMyClass);
+```
+
+If you like to vary naming conventions between C# and Obj C/Java, you can use Json.Net's JsonProperty decorators on your classes properties:
+```C#
+public class MyClass
+{
+      [JsonProperty(PropertyName = "foo_bar")]
+      public string FooBar { get; set; }
+}
+```
+
+
 ###About the Code
 
 First, if you haven't setup GCM for your app go ahead and do so [here](https://developers.google.com/mobile/add)
