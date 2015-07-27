@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="GcmDeviceGroupRequest.cs" />
     <Compile Include="GcmDeviceGroupResponse.cs" />
+    <Compile Include="GcmExceptions.cs" />
     <Compile Include="GcmInstanceIdResponse.cs" />
     <Compile Include="GcmManager.cs" />
     <Compile Include="GcmMessageExtensions.cs" />
