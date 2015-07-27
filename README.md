@@ -6,6 +6,13 @@ This is a simple a straight forward library to use, just create an instance of a
 All of the entities are up to date (as of July 1, 2015) according to the GCM [Server Ref](https://developers.google.com/cloud-messaging/server-ref)
 
 
+###Nuget
+Check it out [here](https://www.nuget.org/packages/GcmSharp/)
+
+Download it by running:
+```
+PM> Install-Package GcmSharp 
+```
 ###Example Code
 
 
