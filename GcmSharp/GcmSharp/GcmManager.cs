@@ -259,7 +259,7 @@ namespace GcmSharp
             HttpWebResponse httpResponse;
             string responseData;
             SetupRequest(url);
-            request.ContentLength = data.Length;
+            request.ContentLength = Encoding.UTF8.GetByteCount(data);
 
             using (var dataStream = new StreamWriter(request.GetRequestStream()))
             {
